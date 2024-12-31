@@ -32,6 +32,7 @@ export const createBlog = async (req, res) => {
 }
 
 export const deleteBlog = async (req, res) => {
+    const {id} = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(404).json({success: false, message: "Invalid blog id"});
     }
