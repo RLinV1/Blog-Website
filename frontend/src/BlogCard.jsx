@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { FaEdit } from "react-icons/fa";
 import EditModal from "./modals/editModal";
-const BlogCard = ({title, content, id, getBlogs}) => {
+const BlogCard = ({title, content, id, getBlogs, image}) => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -22,6 +22,11 @@ const BlogCard = ({title, content, id, getBlogs}) => {
           <DeleteModal  openModal={openModal} setOpenModal={setOpenModal} getBlogs={getBlogs} id={id}/>
           <EditModal openModal={openEditModal} setOpenModal={setOpenEditModal} getBlogs={getBlogs} id={id} content={content} title={title}/>
         </div>
+      </div>
+      <div>
+        {image &&
+        <img src={image} alt="blog" className="w-full h-48 object-cover"/>
+        }
       </div>
       
       <p className="font-normal text-gray-700 dark:text-gray-400 text-ellipsis max-h-12 overflow-hidden">

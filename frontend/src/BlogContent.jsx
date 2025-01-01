@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 
+
 const BlogContent = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [blog, setBlog] = React.useState({});
+  const [blog, setBlog] = useState({});
+
+
+  
+  
 
   const getBlog = async () => {
     const response = await fetch(`http://localhost:5000/api/blogs/${id}`);
@@ -35,9 +40,12 @@ const BlogContent = () => {
       </div>
       
       {blog && (
-        <div className="flex flex-col items-center gap-8 justify-center">
+        <div className="w-full h-fit flex flex-col items-center gap-8 justify-center bg-[#678dc5] dark:bg-gray-700">
           <div className="text-6xl flex dark:text-white text-black w-full justify-center">
             {blog.title}
+          </div>
+          <div className="bg-[#678dc5] dark:bg-gray-700">
+            <img src={blog.image} alt="blog image" className="max-w-md max-h-md" />
           </div>
           <p className="dark:text-white text-black">{blog.content}</p>
         </div>
