@@ -28,8 +28,8 @@ const deleteModal = ({ openModal, setOpenModal, getBlogs, id}) => {
                 Delete this blog?
             </h3>
             <div className="flex gap-4">
-                <Button onClick={handleDelete} className="w-full" color="red" >Yes I'm Sure</Button>
-                <Button onClick={onCloseModal} className="w-full " color="gray" >No</Button>
+                <Button onClick={handleDelete} className="w-full bg-red-700 text-white" color="red" >Yes I'm Sure</Button>
+                <Button onClick={onCloseModal} className="w-full"color="gray" >No</Button>
             </div>
           </div>
         </Modal.Body>

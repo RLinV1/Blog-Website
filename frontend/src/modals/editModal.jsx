@@ -1,32 +1,31 @@
 "use client";
 
-import { Button, Label, Modal, TextInput, Textarea } from "flowbite-react";
+import { Button, Modal, Label, TextInput, Textarea } from "flowbite-react";
 import { useState } from "react";
-
-const addModal = ({ openModal, setOpenModal, getBlogs }) => {
+const EditModal = ({ openModal, setOpenModal, getBlogs, id, title, content}) => {
   const [blogData, setBlogData] = useState({
-    title: "",
-    content: "",
+    title: title,
+    content: content,
   });
 
   function onCloseModal() {
     setOpenModal(false);
-    setBlogData({ title: "", content: "" });
+    setBlogData({ title: title, content: content });
   }
-  const handleAdd = () => {
-    fetch("http://localhost:5000/api/blogs", {
-      method: "POST",
+  const handleEdit = async () => {
+    const response = await fetch("http://localhost:5000/api/blogs/" + id, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(blogData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        getBlogs();
-        onCloseModal();
-      });
+    });
+
+    const data = await response.json();
+    console.log(data);
+    onCloseModal();
+    setBlogData({ title: blogData.title, content: blogData.content });
+    getBlogs();
   };
   return (
     <>
@@ -34,8 +33,8 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
         <Modal.Header />
         <Modal.Body>
           <div className="space-y-6">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Create A Blog
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white ">
+              Editing this blog
             </h3>
             <div>
               <div className="mb-3 block">
@@ -61,15 +60,15 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
                 placeholder="Set Blog Content..."
                 required
                 rows={4}
-                defaultValue={blogData.content} 
                 onChange={(event) => {
-                  setBlogData({ ...blogData, content: event.target.value }); 
+                  setBlogData({ ...blogData, content: event.target.value });
                 }}
+                value={blogData.content}
               />
             </div>
-            <div>
-              <Button onClick={handleAdd} className="w-full">
-                Add
+            <div className="flex gap-4">
+              <Button onClick={handleEdit} className="w-full text-white">
+                Edit
               </Button>
             </div>
           </div>
@@ -79,4 +78,4 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
   );
 };
 
-export default addModal;
+export default EditModal;

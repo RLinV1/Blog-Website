@@ -13,6 +13,22 @@ export const getBlogs = async (req, res) => {
     }
 };
 
+export const getBlog = async (req, res) => {
+    const {id} = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.status(404).json({success: false, message: "Invalid blog id"});
+    }
+    try{
+        const data = await Blog.findById(id);
+
+        return res.status(200).json(data);
+    } catch(error){
+
+        return res.status(500).json({success: false, message: "An error occurred"});
+    }
+};
+
+
 export const createBlog = async (req, res) => {
     const blog = req.body;
 
