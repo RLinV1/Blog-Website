@@ -41,13 +41,20 @@ const BlogContent = () => {
       
       {blog && (
         <div className="w-full h-fit flex flex-col items-center gap-8 justify-center bg-[#678dc5] dark:bg-gray-700">
-          <div className="text-6xl flex dark:text-white text-black w-full justify-center">
+          <div className="text-6xl flex dark:text-white text-black w-full justify-center items-center text-center">
             {blog.title}
           </div>
           <div className="bg-[#678dc5] dark:bg-gray-700">
-            <img src={blog.image} alt="blog image" className="max-w-md max-h-md" />
+            {
+              blog.image && <img src={blog.image} alt="blog image" className="max-w-md max-h-md" />
+
+            }
           </div>
-          <p className="dark:text-white text-black">{blog.content}</p>
+          <div className="dark:text-white text-black p-8 max-w-[75%] sm:text-sm md:text-base lg:text-xl  ">
+            {blog.content && blog.content.split("\n").map((paragraph, index) => {
+              return <p key={index} className="p-1">{paragraph}</p>;
+            })}
+          </div>
         </div>
       )}
     </div>

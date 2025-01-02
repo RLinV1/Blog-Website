@@ -11,9 +11,9 @@ const BlogCard = ({title, content, id, getBlogs, image}) => {
   const [openEditModal, setOpenEditModal] = useState(false);
  
   return (
-    <Card className="max-w-sm max-h-96">
+    <Card className="max-w-sm">
       <div className="flex justify-between items-center">
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-ellipsis max-h-32 overflow-hidden">
           {title}
         </h5>
         <div className="flex place-items-center text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -23,16 +23,17 @@ const BlogCard = ({title, content, id, getBlogs, image}) => {
           <EditModal openModal={openEditModal} setOpenModal={setOpenEditModal} getBlogs={getBlogs} id={id} content={content} title={title}/>
         </div>
       </div>
-      <div>
-        {image &&
-        <img src={image} alt="blog" className="w-full h-48 object-cover"/>
-        }
-      </div>
-      
-      <p className="font-normal text-gray-700 dark:text-gray-400 text-ellipsis max-h-12 overflow-hidden">
+      {
+        image && 
+        <div>
+          <img src={image} alt="blog" className="w-full h-48 object-cover"/>
+        </div>
+      }
+    
+      <p className="font-normal text-gray-700 dark:text-gray-400 truncate max-h-12 overflow-hidden">
         {content}
       </p>
-      <Button onClick={() => navigate(`/blog/${id}`)} className="mt-4">
+      <Button onClick={() => navigate(`/blog/${id}`)}>
         Read more
         <svg className="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path
