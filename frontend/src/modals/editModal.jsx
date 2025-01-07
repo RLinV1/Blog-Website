@@ -33,7 +33,7 @@ const EditModal = ({ openModal, setOpenModal, getBlogs, id, title, content}) => 
     });
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     onCloseModal();
     setBlogData({ title: blogData.title, content: blogData.content });
     getBlogs();

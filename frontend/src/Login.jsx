@@ -11,7 +11,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   async function signUpNewUser() {
-    console.log(user);
+    // console.log(user);
     const { data, error } = await supabase.auth.signUp({
       email: user.email,
       password: user.password,
@@ -21,14 +21,14 @@ export default function Login() {
         },
       },
     });
-    console.log(data);
+    // console.log(data);
     if (error) {
       alert(error.message);
     }
   }
 
   async function signInWithEmail() {
-    console.log(user);
+    // console.log(user);
     const { data, error } = await supabase.auth.signInWithPassword({
       email: user.email,
       password: user.password,

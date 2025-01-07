@@ -23,7 +23,7 @@ export const getBlogsFromUser = async (req, res) => {
     try{
         const {user_id} = req.params;
         const data = await Blog.find({user_id});
-        console.log(data);
+        // console.log(data);
         return res.status(200).json(data);
     } catch(error){
 
@@ -51,7 +51,7 @@ export const createBlog = async (req, res) => {
     const blog = req.body;
     const token = req.headers.authorization?.split(' ')[1];
     const user = await supabase.auth.getUser(token);
-    console.log(user);
+    // console.log(user);
 
     if (!blog.title || !blog.content){
         return res.status(400).json({success: false, message: "Need all fields"});
@@ -75,12 +75,12 @@ export const deleteBlog = async (req, res) => {
     }
     const token = req.headers.authorization?.split(' ')[1];
     const user = await supabase.auth.getUser(token);
-    console.log(user.data.user.id);
+    // console.log(user.data.user.id);
 
     
     try{    
         const blog = await Blog.deleteOne({_id: id, user_id: user.data.user.id});
-        console.log(blog)
+        // console.log(blog)
         if (!blog){
             return res.status(404).json({success: false, message: "Blog not found"});
         } else if (blog.deletedCount == 0){
@@ -100,14 +100,14 @@ export const updateBlog = async (req, res) => {
 
     const token = req.headers.authorization?.split(' ')[1];
     const user = await supabase.auth.getUser(token);
-    console.log(user.data.user.id);
+    // console.log(user.data.user.id);
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(404).json({success: false, message: "Invalid blog id"});
     }
     try{
         const updatedData = await Blog.findOneAndUpdate({_id: id, user_id: user.data.user.id}, blog, {new: true});
-        console.log(updatedData)
+        // console.log(updatedData)
         if (!updatedData){
             return res.status(404).json({success: false, message: "You cannot edit that blog"});
 

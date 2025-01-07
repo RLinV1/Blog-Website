@@ -19,14 +19,14 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
 
   async function uploadImage(e) {
     let file = e.target.files[0];
-    console.log(user);
+    // console.log(user);
     const filePath = user.id + "/" + uuidv4();
       const { data, error } = await supabase.storage
     .from('BlogImages')
     .upload(filePath, file);
 
 
-    console.log(data);
+    // console.log(data);
     if(error){
       console.log(error);
     }
@@ -35,7 +35,7 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
     .from('BlogImages')
     .getPublicUrl(filePath);
 
-    console.log(url.publicUrl);
+    // console.log(url.publicUrl);
 
     setBlogData({ ...blogData, image: url.publicUrl });
 
@@ -73,7 +73,7 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         getBlogs();
         onCloseModal();
       });

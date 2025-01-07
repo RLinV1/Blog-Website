@@ -31,7 +31,7 @@ const deleteModal = ({ openModal, setOpenModal, getBlogs, id }) => {
     });
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     getBlogs();
     onCloseModal();
