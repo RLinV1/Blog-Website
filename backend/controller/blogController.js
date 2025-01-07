@@ -23,7 +23,7 @@ export const getBlogsFromUser = async (req, res) => {
     try{
         const {user_id} = req.params;
         const data = await Blog.find({user_id});
-        // console.log(data);
+        console.log(data);
         return res.status(200).json(data);
     } catch(error){
 
