@@ -1,28 +1,29 @@
 "use client";
 
 import { Button, Label, Modal, TextInput, Textarea, FileInput} from "flowbite-react";
-import { useState } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useEffect, useState } from "react";
+import { useSupabaseClient, useUser} from "@supabase/auth-helpers-react";
 import { v4 as uuidv4 } from 'uuid';
 
 const addModal = ({ openModal, setOpenModal, getBlogs }) => {
 
   const supabase = useSupabaseClient();
-
+  const user = useUser();
   const [blogData, setBlogData] = useState({
+    user_id: "",
     title: "",
     content: "",
     image: "",
   });
+  const [session, setSession] = useState(null);
 
   async function uploadImage(e) {
     let file = e.target.files[0];
-
-    const filePath = uuidv4();
+    console.log(user);
+    const filePath = user.id + "/" + uuidv4();
       const { data, error } = await supabase.storage
     .from('BlogImages')
     .upload(filePath, file);
-
 
 
     console.log(data);
@@ -42,17 +43,31 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
 
   function onCloseModal() {
     setOpenModal(false);
-    setBlogData({ title: "", content: "", image: "" });
+    setBlogData({...blogData, title: "", content: "", image: "" });
   }
+
+  useEffect(() => {
+    if(user){
+      setBlogData({...blogData, user_id: user.id});
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session);
+        // console.log(session.access_token);
+      });
+    }
+  }, [user]);
+
+
   const handleAdd = () => {
 
     if (blogData.content === "" || blogData.title === "") {
+      alert("Title and Content is required.");
       return;      
     }
     fetch("http://localhost:5000/api/blogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${session.access_token}`
       },
       body: JSON.stringify(blogData),
     })
@@ -75,6 +90,7 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
             <div>
               <div className="mb-3 block">
                 <Label htmlFor="title" value="Your Title" />
+                
               </div>
               <TextInput
                 id="title"
@@ -107,7 +123,7 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
                 <div className="mb-3">
                   <Label
                     htmlFor="file-upload-helper-text"
-                    value="Upload Image File"
+                    value="Upload Image File (Optional)"
                   />
                 </div>
                 <FileInput

@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-console.log(process.env.MONGO_URI);
+console.log(process.env.SUPABASE_KEY);
 app.use(express.json());
 
 app.use("/api/blogs", blogRoutes);

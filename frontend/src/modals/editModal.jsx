@@ -1,12 +1,22 @@
 "use client";
 
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Button, Modal, Label, TextInput, Textarea } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const EditModal = ({ openModal, setOpenModal, getBlogs, id, title, content}) => {
+  const supabase = useSupabaseClient();
   const [blogData, setBlogData] = useState({
     title: title,
     content: content,
   });
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      // console.log(session.access_token);
+    });
+  })
 
   function onCloseModal() {
     setOpenModal(false);
@@ -17,6 +27,7 @@ const EditModal = ({ openModal, setOpenModal, getBlogs, id, title, content}) => 
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${session.access_token}`
       },
       body: JSON.stringify(blogData),
     });
@@ -29,7 +40,7 @@ const EditModal = ({ openModal, setOpenModal, getBlogs, id, title, content}) => 
   };
   return (
     <>
-      <Modal show={openModal} size="lg" onClose={onCloseModal} popup>
+      <Modal show={openModal} size="3xl"  onClose={onCloseModal} popup>
         <Modal.Header />
         <Modal.Body>
           <div className="space-y-6">
@@ -59,7 +70,7 @@ const EditModal = ({ openModal, setOpenModal, getBlogs, id, title, content}) => 
                 id="content"
                 placeholder="Set Blog Content..."
                 required
-                rows={4}
+                rows={10}
                 onChange={(event) => {
                   setBlogData({ ...blogData, content: event.target.value });
                 }}
