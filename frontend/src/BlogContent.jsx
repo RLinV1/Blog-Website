@@ -12,7 +12,7 @@ const BlogContent = () => {
   const user = useUser();
 
   const getBlog = async () => {
-    const response = await fetch(`http://localhost:5000/api/blogs/${id}`);
+    const response = await fetch(`https://blog-website-ss4m.onrender.com/api/blogs/${id}`);
     const data = await response.json();
     setBlog(data);
   };

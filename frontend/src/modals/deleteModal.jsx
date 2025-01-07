@@ -23,7 +23,7 @@ const deleteModal = ({ openModal, setOpenModal, getBlogs, id }) => {
 
   const handleDelete = async () => {
     // console.log(session.access_token)
-    const response = await fetch("http://localhost:5000/api/blogs/" + id, {
+    const response = await fetch("https://blog-website-ss4m.onrender.com/api/blogs/" + id, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${session.access_token}`,

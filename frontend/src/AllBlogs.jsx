@@ -15,7 +15,7 @@ const AllBlogs = () => {
     try {
       // console.log(user);
       // console.log(user.id);
-      const response = await fetch(`http://localhost:5000/api/blogs/`);
+      const response = await fetch(`https://blog-website-ss4m.onrender.com/api/blogs/`);
       const data = await response.json();
       setBlogs(data);
     } catch (error) {

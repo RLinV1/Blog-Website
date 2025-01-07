@@ -63,7 +63,7 @@ const addModal = ({ openModal, setOpenModal, getBlogs }) => {
       alert("Title and Content is required.");
       return;      
     }
-    fetch("http://localhost:5000/api/blogs", {
+    fetch("https://blog-website-ss4m.onrender.com/api/blogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

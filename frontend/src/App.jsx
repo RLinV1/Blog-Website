@@ -15,7 +15,7 @@ function App() {
   const getBlogs = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/blogs/getUserBlogs/${user.id}`
+        `https://blog-website-ss4m.onrender.com/getUserBlogs/${user.id}`
       );
       const data = await response.json();
       setBlogs(data);

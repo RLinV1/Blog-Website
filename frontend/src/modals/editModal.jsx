@@ -23,7 +23,7 @@ const EditModal = ({ openModal, setOpenModal, getBlogs, id, title, content}) => 
     setBlogData({ title: title, content: content });
   }
   const handleEdit = async () => {
-    const response = await fetch("http://localhost:5000/api/blogs/" + id, {
+    const response = await fetch("https://blog-website-ss4m.onrender.com/api/blogs/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
