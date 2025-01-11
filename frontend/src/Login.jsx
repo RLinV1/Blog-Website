@@ -19,14 +19,25 @@ export default function Login() {
         data: {
           username: user.username,
         },
-        redirectTo: "https://blog-website-sooty-chi.vercel.app/dashboard",
       },
     });
-    alert("Check your email for verification");
-    // console.log(data);
+
     if (error) {
-      alert(error.message);
+      if (error.message === "Database error saving new user"){
+        alert("Username is already taken");      
+      } else {
+        // console.log(error.code)
+        if (error.code === "over_email_send_rate_limit") {
+          alert("Email rate limit. Try again later")
+        } else {
+          alert("Error in signing up. Something wrong happened in the server");
+        }
+      }
+    } else {
+      alert("Check your email for verification");
     }
+    // console.log(data);
+    
   }
 
   async function signInWithEmail() {
