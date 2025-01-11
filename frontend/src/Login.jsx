@@ -19,6 +19,7 @@ export default function Login() {
         data: {
           username: user.username,
         },
+        redirectTo: "https://blog-website-sooty-chi.vercel.app/dashboard",
       },
     });
     alert("Check your email for verification");
