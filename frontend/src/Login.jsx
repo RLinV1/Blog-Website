@@ -21,6 +21,7 @@ export default function Login() {
         },
       },
     });
+    alert("Check your email for verification");
     // console.log(data);
     if (error) {
       alert(error.message);
