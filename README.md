@@ -1,7 +1,7 @@
 # Introduction
 
 This is a simple blog website that allows users to create blogs using the mern stack and supabase.
-If the website doesn't work then the backend server is most likely offline due to it being hosted on a free service
+If the website doesn't work then the backend server or mongodb is most likely offline due to it being hosted on a free service
 
 # How to run
 First in the backend folder create an env file with the key: MONGO_URI and provide it a valid MONGODB URI to a mongoDB database.
