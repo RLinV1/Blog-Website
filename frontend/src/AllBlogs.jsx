@@ -23,14 +23,24 @@ const AllBlogs = () => {
     }
   };
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    // console.log(user);
-    if (user) {
-      getBlogs();
+    // Simulate loading data
+    setTimeout(() => setIsLoading(false), 250);
+  }, []);
+
+ useEffect(() => {
+    if (!user) {
+      setIsLoading(true); // Wait for auth state to resolve
     } else {
-      navigate("/");
+      setIsLoading(false);
+      getBlogs();
     }
-  }, [user]);
+ }, [user]);
+
+  if (isLoading) return <div>Loading...</div>;
+
 
   return (
     <div className="flex flex-col w-full h-screen items-center justify-between  bg-[#678dc5] dark:bg-gray-700">
